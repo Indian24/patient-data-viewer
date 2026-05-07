@@ -21,9 +21,7 @@ export default function PatientList({ patients, selected, onSelect }: Props) {
   }, [searchOpen]);
 
   const filtered = query.trim()
-    ? patients.filter((p) =>
-        p.name.toLowerCase().includes(query.toLowerCase())
-      )
+    ? patients.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
     : patients;
 
   return (
@@ -36,21 +34,48 @@ export default function PatientList({ patients, selected, onSelect }: Props) {
           onClick={() => setSearchOpen((o) => !o)}
         >
           {searchOpen ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
             </svg>
           )}
         </button>
       </div>
 
-      <div className={`search-bar-wrap ${searchOpen ? "search-bar-visible" : ""}`}>
+      <div
+        className={`search-bar-wrap ${searchOpen ? "search-bar-visible" : ""}`}
+      >
         <div className="search-bar">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="search-icon">
-            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="search-icon"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
           </svg>
           <input
             ref={inputRef}
@@ -62,9 +87,21 @@ export default function PatientList({ patients, selected, onSelect }: Props) {
             aria-label="Search patients"
           />
           {query && (
-            <button className="search-clear" onClick={() => setQuery("")} aria-label="Clear search">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+            <button
+              className="search-clear"
+              onClick={() => setQuery("")}
+              aria-label="Clear search"
+            >
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             </button>
           )}
@@ -79,10 +116,22 @@ export default function PatientList({ patients, selected, onSelect }: Props) {
       <ul className="patient-items">
         {filtered.length === 0 ? (
           <li className="search-empty">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
             </svg>
-            <span>No patients match<br /><strong>"{query}"</strong></span>
+            <span>
+              No patients match
+              <br />
+              <strong>"{query}"</strong>
+            </span>
           </li>
         ) : (
           filtered.map((patient) => {
@@ -103,7 +152,9 @@ export default function PatientList({ patients, selected, onSelect }: Props) {
                   }}
                 />
                 <div className="patient-info">
-                  <span className="patient-name">{highlightMatch(patient.name, query)}</span>
+                  <span className="patient-name">
+                    {highlightMatch(patient.name, query)}
+                  </span>
                   <span className="patient-meta">
                     {patient.gender}, {patient.age}
                   </span>
@@ -113,8 +164,15 @@ export default function PatientList({ patients, selected, onSelect }: Props) {
                   aria-label="More options"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <circle cx="5" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><circle cx="19" cy="12" r="2" />
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
                   </svg>
                 </button>
               </li>
@@ -133,7 +191,9 @@ function highlightMatch(name: string, query: string) {
   return (
     <>
       {name.slice(0, idx)}
-      <mark className="search-highlight">{name.slice(idx, idx + query.length)}</mark>
+      <mark className="search-highlight">
+        {name.slice(idx, idx + query.length)}
+      </mark>
       {name.slice(idx + query.length)}
     </>
   );

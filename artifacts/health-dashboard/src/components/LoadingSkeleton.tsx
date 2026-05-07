@@ -60,18 +60,24 @@ export default function LoadingSkeleton() {
               </div>
               <div className="bp-content">
                 <div className="bp-chart-wrap">
-                  <Bone style={{ width: "100%", height: 220, borderRadius: 12 }} />
+                  <Bone
+                    style={{ width: "100%", height: 220, borderRadius: 12 }}
+                  />
                 </div>
                 <div className="bp-stats">
                   <div className="bp-stat" style={{ gap: 8 }}>
-                    <Bone style={{ width: 12, height: 12, borderRadius: "50%" }} />
+                    <Bone
+                      style={{ width: 12, height: 12, borderRadius: "50%" }}
+                    />
                     <Bone style={{ width: 60, height: 13 }} />
                     <Bone style={{ width: 48, height: 32 }} />
                     <Bone style={{ width: 120, height: 12 }} />
                   </div>
                   <div className="bp-divider" />
                   <div className="bp-stat" style={{ gap: 8 }}>
-                    <Bone style={{ width: 12, height: 12, borderRadius: "50%" }} />
+                    <Bone
+                      style={{ width: 12, height: 12, borderRadius: "50%" }}
+                    />
                     <Bone style={{ width: 60, height: 13 }} />
                     <Bone style={{ width: 48, height: 32 }} />
                     <Bone style={{ width: 120, height: 12 }} />
@@ -82,8 +88,14 @@ export default function LoadingSkeleton() {
 
             <div className="vitals-grid">
               {[0, 1, 2].map((i) => (
-                <div key={i} className="vital-card" style={{ background: ["#E0F3FA", "#FFF8E6", "#FFE6F1"][i] }}>
-                  <Bone style={{ width: 80, height: 80, borderRadius: "50%" }} />
+                <div
+                  key={i}
+                  className="vital-card"
+                  style={{ background: ["#E0F3FA", "#FFF8E6", "#FFE6F1"][i] }}
+                >
+                  <Bone
+                    style={{ width: 80, height: 80, borderRadius: "50%" }}
+                  />
                   <Bone style={{ width: 110, height: 13, marginTop: 8 }} />
                   <Bone style={{ width: 70, height: 32, marginTop: 6 }} />
                   <Bone style={{ width: 55, height: 12 }} />
@@ -95,13 +107,28 @@ export default function LoadingSkeleton() {
           <section className="diagnostic-section">
             <Bone style={{ width: 140, height: 20, marginBottom: 16 }} />
             <div className="diagnostic-table-wrap">
-              <div style={{ background: "#F6F7F8", padding: "12px 16px", display: "flex", gap: 40 }}>
+              <div
+                style={{
+                  background: "#F6F7F8",
+                  padding: "12px 16px",
+                  display: "flex",
+                  gap: 40,
+                }}
+              >
                 {[120, 200, 80].map((w, i) => (
                   <Bone key={i} style={{ width: w, height: 13 }} />
                 ))}
               </div>
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} style={{ display: "flex", gap: 40, padding: "14px 16px", borderBottom: "1px solid #E8ECF0" }}>
+                <div
+                  key={i}
+                  style={{
+                    display: "flex",
+                    gap: 40,
+                    padding: "14px 16px",
+                    borderBottom: "1px solid #E8ECF0",
+                  }}
+                >
                   <Bone style={{ width: 120, height: 14 }} />
                   <Bone style={{ width: 200, height: 14 }} />
                   <Bone style={{ width: 90, height: 24, borderRadius: 50 }} />
@@ -116,15 +143,40 @@ export default function LoadingSkeleton() {
             <Bone className="skeleton-profile-photo" />
             <Bone style={{ width: 140, height: 22, marginBottom: 16 }} />
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="profile-info-row" style={{ width: "100%" }}>
-                <Bone style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0 }} />
-                <div style={{ display: "flex", flexDirection: "column", gap: 5, flex: 1 }}>
+              <div
+                key={i}
+                className="profile-info-row"
+                style={{ width: "100%" }}
+              >
+                <Bone
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    flexShrink: 0,
+                  }}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 5,
+                    flex: 1,
+                  }}
+                >
                   <Bone style={{ width: 70, height: 11 }} />
                   <Bone style={{ width: 120, height: 14 }} />
                 </div>
               </div>
             ))}
-            <Bone style={{ width: 160, height: 40, borderRadius: 50, marginTop: 12 }} />
+            <Bone
+              style={{
+                width: 160,
+                height: 40,
+                borderRadius: 50,
+                marginTop: 12,
+              }}
+            />
           </div>
 
           <div className="lab-section">

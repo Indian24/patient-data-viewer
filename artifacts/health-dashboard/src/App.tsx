@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import type { Patient } from "./types";
 import { fetchPatients } from "./lib/api";
 import NavBar from "./components/NavBar";
-import PatientList from "./components/PatientList";
 import BloodPressureChart from "./components/BloodPressureChart";
 import VitalsCards from "./components/VitalsCards";
 import DiagnosticList from "./components/DiagnosticList";
@@ -36,7 +35,14 @@ export default function App() {
   if (error) {
     return (
       <div className="error-screen">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#EF4444"
+          strokeWidth="2"
+        >
           <circle cx="12" cy="12" r="10" />
           <line x1="12" y1="8" x2="12" y2="12" />
           <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -55,13 +61,7 @@ export default function App() {
   return (
     <div className="app">
       <NavBar />
-      <div className="main-layout">
-        <PatientList
-          patients={allPatients}
-          selected={selected}
-          onSelect={setSelected}
-        />
-
+      <div className="main-layout single-patient">
         <main className="content-area">
           <section className="diagnosis-section">
             <h2 className="section-heading">Diagnosis History</h2>

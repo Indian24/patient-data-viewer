@@ -19,8 +19,8 @@ interface Props {
 type Range = 3 | 6 | 12;
 
 const RANGE_LABELS: Record<Range, string> = {
-  3:  "Last 3 months",
-  6:  "Last 6 months",
+  3: "Last 3 months",
+  6: "Last 6 months",
   12: "Last 1 year",
 };
 
@@ -63,7 +63,10 @@ export default function BloodPressureChart({ history }: Props) {
       <div className="bp-content">
         <div className="bp-chart-wrap">
           <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <LineChart
+              data={data}
+              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+            >
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis
                 dataKey="label"
@@ -114,7 +117,9 @@ export default function BloodPressureChart({ history }: Props) {
             <div className="bp-stat-dot" style={{ background: "#C26EB4" }} />
             <span className="bp-stat-label">Systolic</span>
             <span className="bp-stat-value">{systolicValue}</span>
-            <span className={`bp-stat-level ${getLevelClass(String(systolicLevel))}`}>
+            <span
+              className={`bp-stat-level ${getLevelClass(String(systolicLevel))}`}
+            >
               {getLevelArrow(String(systolicLevel))} {systolicLevel}
             </span>
           </div>
@@ -123,7 +128,9 @@ export default function BloodPressureChart({ history }: Props) {
             <div className="bp-stat-dot" style={{ background: "#7B61FF" }} />
             <span className="bp-stat-label">Diastolic</span>
             <span className="bp-stat-value">{diastolicValue}</span>
-            <span className={`bp-stat-level ${getLevelClass(String(diastolicLevel))}`}>
+            <span
+              className={`bp-stat-level ${getLevelClass(String(diastolicLevel))}`}
+            >
               {getLevelArrow(String(diastolicLevel))} {diastolicLevel}
             </span>
           </div>
