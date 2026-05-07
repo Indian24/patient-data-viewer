@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   LineChart,
   Line,
@@ -15,16 +16,27 @@ interface Props {
   history: DiagnosisHistoryEntry[];
 }
 
-export default function BloodPressureChart({ history }: Props) {
-  const sorted = sortDiagnosisHistory(history);
+type Range = 3 | 6 | 12;
 
-  const data = sorted.map((entry) => ({
+const RANGE_LABELS: Record<Range, string> = {
+  3:  "Last 3 months",
+  6:  "Last 6 months",
+  12: "Last 1 year",
+};
+
+export default function BloodPressureChart({ history }: Props) {
+  const [range, setRange] = useState<Range>(6);
+
+  const sorted = sortDiagnosisHistory(history);
+  const sliced = sorted.slice(-range);
+
+  const data = sliced.map((entry) => ({
     label: `${entry.month.slice(0, 3)}, ${entry.year}`,
     systolic: entry.blood_pressure.systolic.value,
     diastolic: entry.blood_pressure.diastolic.value,
   }));
 
-  const latest = sorted[sorted.length - 1];
+  const latest = sliced[sliced.length - 1];
   const systolicValue = latest?.blood_pressure.systolic.value ?? "--";
   const systolicLevel = latest?.blood_pressure.systolic.levels ?? "";
   const diastolicValue = latest?.blood_pressure.diastolic.value ?? "--";
@@ -34,7 +46,18 @@ export default function BloodPressureChart({ history }: Props) {
     <div className="bp-section">
       <div className="bp-header">
         <h3 className="bp-title">Blood Pressure</h3>
-        <span className="bp-range">Last 6 months</span>
+        <div className="bp-range-group">
+          {([3, 6, 12] as Range[]).map((r) => (
+            <button
+              key={r}
+              className={`bp-range-btn ${range === r ? "bp-range-btn-active" : ""}`}
+              onClick={() => setRange(r)}
+            >
+              {r === 12 ? "1 year" : `${r} months`}
+            </button>
+          ))}
+        </div>
+        <span className="bp-range-label">{RANGE_LABELS[range]}</span>
       </div>
 
       <div className="bp-content">
@@ -61,9 +84,7 @@ export default function BloodPressureChart({ history }: Props) {
                   fontSize: "12px",
                 }}
               />
-              <Legend
-                wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }}
-              />
+              <Legend wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }} />
               <Line
                 type="monotone"
                 dataKey="systolic"
@@ -72,6 +93,7 @@ export default function BloodPressureChart({ history }: Props) {
                 strokeWidth={2}
                 dot={{ fill: "#C26EB4", r: 4 }}
                 activeDot={{ r: 6 }}
+                animationDuration={400}
               />
               <Line
                 type="monotone"
@@ -81,6 +103,7 @@ export default function BloodPressureChart({ history }: Props) {
                 strokeWidth={2}
                 dot={{ fill: "#7B61FF", r: 4 }}
                 activeDot={{ r: 6 }}
+                animationDuration={400}
               />
             </LineChart>
           </ResponsiveContainer>
