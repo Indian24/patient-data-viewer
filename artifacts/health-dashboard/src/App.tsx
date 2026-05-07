@@ -8,6 +8,7 @@ import VitalsCards from "./components/VitalsCards";
 import DiagnosticList from "./components/DiagnosticList";
 import LabResults from "./components/LabResults";
 import PatientProfile from "./components/PatientProfile";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 
 export default function App() {
   const [allPatients, setAllPatients] = useState<Patient[]>([]);
@@ -29,12 +30,7 @@ export default function App() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="loading-screen">
-        <div className="loading-spinner" />
-        <p>Loading patient data...</p>
-      </div>
-    );
+    return <LoadingSkeleton />;
   }
 
   if (error) {
