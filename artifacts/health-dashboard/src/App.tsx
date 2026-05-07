@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Patient } from "./types";
-import { fetchJessicaTaylor } from "./lib/api";
+import { fetchPatients } from "./lib/api";
 import NavBar from "./components/NavBar";
 import PatientList from "./components/PatientList";
 import BloodPressureChart from "./components/BloodPressureChart";
@@ -10,16 +10,16 @@ import LabResults from "./components/LabResults";
 import PatientProfile from "./components/PatientProfile";
 
 export default function App() {
-  const [patients, setPatients] = useState<Patient[]>([]);
-  const [jessica, setJessica] = useState<Patient | null>(null);
+  const [allPatients, setAllPatients] = useState<Patient[]>([]);
+  const [selected, setSelected] = useState<Patient | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchJessicaTaylor()
-      .then((data) => {
-        setJessica(data);
-        setPatients([data]);
+    fetchPatients()
+      .then(({ all, jessica }) => {
+        setAllPatients(all);
+        setSelected(jessica);
         setLoading(false);
       })
       .catch((err: Error) => {
@@ -54,31 +54,31 @@ export default function App() {
     );
   }
 
-  if (!jessica) return null;
+  if (!selected) return null;
 
   return (
     <div className="app">
       <NavBar />
       <div className="main-layout">
         <PatientList
-          patients={patients}
-          selected={jessica}
-          onSelect={setJessica}
+          patients={allPatients}
+          selected={selected}
+          onSelect={setSelected}
         />
 
         <main className="content-area">
           <section className="diagnosis-section">
             <h2 className="section-heading">Diagnosis History</h2>
-            <BloodPressureChart history={jessica.diagnosis_history} />
-            <VitalsCards history={jessica.diagnosis_history} />
+            <BloodPressureChart history={selected.diagnosis_history} />
+            <VitalsCards history={selected.diagnosis_history} />
           </section>
 
-          <DiagnosticList items={jessica.diagnostic_list} />
+          <DiagnosticList items={selected.diagnostic_list} />
         </main>
 
         <div className="right-panel">
-          <PatientProfile patient={jessica} />
-          <LabResults results={jessica.lab_results} />
+          <PatientProfile patient={selected} />
+          <LabResults results={selected.lab_results} />
         </div>
       </div>
     </div>

@@ -10,7 +10,12 @@ function getAuthHeader(): string {
   return `Basic ${encoded}`;
 }
 
-export async function fetchJessicaTaylor(): Promise<Patient> {
+export interface FetchResult {
+  all: Patient[];
+  jessica: Patient;
+}
+
+export async function fetchPatients(): Promise<FetchResult> {
   const response = await fetch(API_URL, {
     headers: {
       Authorization: getAuthHeader(),
@@ -21,14 +26,14 @@ export async function fetchJessicaTaylor(): Promise<Patient> {
     throw new Error(`API request failed: ${response.status} ${response.statusText}`);
   }
 
-  const patients: Patient[] = await response.json();
-  const jessica = patients.find((p) => p.name === "Jessica Taylor");
+  const all: Patient[] = await response.json();
+  const jessica = all.find((p) => p.name === "Jessica Taylor");
 
   if (!jessica) {
     throw new Error("Patient Jessica Taylor not found in API response.");
   }
 
-  return jessica;
+  return { all, jessica };
 }
 
 const MONTH_ORDER: Record<string, number> = {
